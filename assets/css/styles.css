@@ -66,6 +66,20 @@
   }
   .nav-search:hover { border-color: var(--green); }
   .nav-search svg { flex-shrink: 0; }
+  .nav-search-mobile {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    border: 1px solid var(--gray-300);
+    background: var(--gray-100);
+    color: var(--gray-500);
+    cursor: pointer;
+    transition: border-color 0.2s;
+  }
+  .nav-search-mobile:hover { border-color: var(--green); color: var(--green); }
   .nav-search span { flex: 1; }
   .nav-search kbd {
     font-family: 'DM Sans', sans-serif;
@@ -597,6 +611,7 @@
     nav { height: auto; min-height: 64px; padding: 10px 16px; flex-wrap: wrap; gap: 8px; }
     .nav-logo { height: 40px; }
     .nav-search { display: none; }
+    .nav-search-mobile { display: flex; }
     .hero { padding: 36px 16px 28px; }
     .hero h1 { font-size: 28px; }
     .hero p { font-size: 14px; }
