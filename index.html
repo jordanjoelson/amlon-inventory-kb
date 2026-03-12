@@ -1,622 +1,25 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Amlon Group — Inventory Knowledge Base</title>
+<title>The Amlon Group - Inventory Knowledge Base</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700&family=Newsreader:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --green: #1B6B3A;
-    --green-mid: #2D8A4E;
-    --green-light: #E6F4EC;
-    --orange: #E8A43B;
-    --orange-hover: #D4922E;
-    --orange-light: #FEF5E7;
-    --gray-900: #2D2D2D;
-    --gray-700: #555555;
-    --gray-500: #888888;
-    --gray-300: #D5D5D5;
-    --gray-200: #E8E8E8;
-    --gray-100: #F4F4F4;
-    --white: #FFFFFF;
-    --radius: 10px;
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--gray-100);
-    color: var(--gray-900);
-    -webkit-font-smoothing: antialiased;
-    line-height: 1.6;
-  }
-
-  /* ── NAV ── */
-  nav {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background: var(--white);
-    border-bottom: 3px solid var(--green);
-    padding: 0 40px;
-    height: 64px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .nav-left { display: flex; align-items: center; gap: 16px; }
-  .nav-logo { height: 36px; }
-  .nav-divider { width: 1px; height: 24px; background: var(--gray-300); }
-  .nav-title {
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--green);
-    letter-spacing: 0.02em;
-  }
-  .nav-right { display: flex; align-items: center; gap: 12px; }
-  .nav-search {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: var(--gray-100);
-    border: 1px solid var(--gray-300);
-    border-radius: 8px;
-    padding: 8px 14px;
-    font-size: 13px;
-    color: var(--gray-500);
-    cursor: pointer;
-    transition: border-color 0.2s;
-    min-width: 240px;
-  }
-  .nav-search:hover { border-color: var(--green); }
-  .nav-search svg { flex-shrink: 0; }
-  .nav-search span { flex: 1; }
-  .nav-search kbd {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 11px;
-    background: var(--white);
-    border: 1px solid var(--gray-300);
-    border-radius: 4px;
-    padding: 1px 5px;
-    color: var(--gray-500);
-  }
-
-  /* ── HERO ── */
-  .hero {
-    background: var(--white);
-    padding: 64px 40px 56px;
-    text-align: center;
-    border-bottom: 1px solid var(--gray-200);
-  }
-  .hero-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    background: var(--green-light);
-    color: var(--green);
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    padding: 5px 14px;
-    border-radius: 100px;
-    margin-bottom: 20px;
-  }
-  .hero-badge .dot {
-    width: 6px;
-    height: 6px;
-    background: var(--green);
-    border-radius: 50%;
-  }
-  .hero h1 {
-    font-family: 'Newsreader', serif;
-    font-size: 40px;
-    font-weight: 500;
-    color: var(--gray-900);
-    margin-bottom: 10px;
-    letter-spacing: -0.02em;
-  }
-  .hero p {
-    font-size: 15px;
-    color: var(--gray-500);
-    max-width: 480px;
-    margin: 0 auto;
-  }
-
-  /* ── MAIN ── */
-  .container {
-    max-width: 960px;
-    margin: 0 auto;
-    padding: 44px 24px 80px;
-  }
-
-  /* ── SECTION ── */
-  .section { margin-bottom: 44px; }
-  .section-label {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--green);
-    margin-bottom: 14px;
-    padding-left: 2px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .section-label::before {
-    content: '';
-    width: 3px;
-    height: 14px;
-    background: var(--green);
-    border-radius: 2px;
-  }
-
-  /* ── CARDS ── */
-  .card-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-  }
-  .card {
-    background: var(--white);
-    border: 1px solid var(--gray-200);
-    border-top: 3px solid var(--green);
-    border-radius: var(--radius);
-    padding: 22px 24px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-  .card:hover {
-    box-shadow: 0 4px 16px rgba(0,0,0,0.06);
-    transform: translateY(-1px);
-  }
-  .card-icon {
-    width: 36px;
-    height: 36px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 12px;
-    background: var(--green-light);
-  }
-  .card-icon svg { color: var(--green); }
-  .card h3 {
-    font-size: 15px;
-    font-weight: 700;
-    margin-bottom: 5px;
-    color: var(--gray-900);
-  }
-  .card p {
-    font-size: 13px;
-    color: var(--gray-500);
-    line-height: 1.45;
-  }
-
-  /* ── ACCORDION ── */
-  .accordion { display: flex; flex-direction: column; gap: 8px; }
-  .accordion-item {
-    background: var(--white);
-    border: 1px solid var(--gray-200);
-    border-radius: var(--radius);
-    overflow: hidden;
-    transition: border-color 0.2s, box-shadow 0.2s;
-  }
-  .accordion-item:hover { border-color: var(--gray-300); }
-  .accordion-item.open { border-color: var(--green); border-left: 3px solid var(--green); }
-  .accordion-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 16px 22px;
-    cursor: pointer;
-    user-select: none;
-    gap: 16px;
-  }
-  .accordion-header-left { display: flex; align-items: center; gap: 14px; }
-  .accordion-num {
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--white);
-    background: var(--green);
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-  .accordion-title { font-size: 14px; font-weight: 600; color: var(--gray-900); }
-  .accordion-chevron { transition: transform 0.25s ease; color: var(--gray-500); flex-shrink: 0; }
-  .accordion-item.open .accordion-chevron { transform: rotate(180deg); color: var(--green); }
-  .accordion-body { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
-  .accordion-content {
-    padding: 0 22px 20px 60px;
-    font-size: 13px;
-    color: var(--gray-700);
-    line-height: 1.7;
-  }
-  .accordion-content .note {
-    display: flex;
-    align-items: flex-start;
-    gap: 8px;
-    margin-top: 12px;
-    padding: 10px 14px;
-    background: var(--orange-light);
-    border-left: 3px solid var(--orange);
-    border-radius: 0 6px 6px 0;
-    font-size: 12px;
-    color: var(--gray-700);
-  }
-  .accordion-content .note svg { flex-shrink: 0; margin-top: 1px; }
-  .accordion-content code {
-    font-size: 12px;
-    background: var(--gray-100);
-    padding: 2px 6px;
-    border-radius: 4px;
-    font-family: 'SF Mono', 'Fira Code', monospace;
-    color: var(--green);
-  }
-
-  /* ── STEP FLOW ── */
-  .step-flow {
-    display: flex;
-    align-items: flex-start;
-    margin: 4px 0 14px;
-    padding: 14px 0 6px;
-    overflow-x: auto;
-  }
-  .step-node {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    min-width: 100px;
-    max-width: 140px;
-    flex: 1;
-  }
-  .step-circle {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    background: var(--green-light);
-    border: 2px solid var(--green);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--green);
-    position: relative;
-    z-index: 2;
-    flex-shrink: 0;
-  }
-  .step-node.warn .step-circle {
-    background: var(--orange-light);
-    border-color: var(--orange);
-    color: var(--orange);
-  }
-  .step-node.end .step-circle {
-    background: var(--green);
-    border-color: var(--green);
-    color: var(--white);
-  }
-  .step-label {
-    margin-top: 7px;
-    font-size: 10.5px;
-    line-height: 1.3;
-    color: var(--gray-700);
-    max-width: 115px;
-    font-weight: 500;
-  }
-  .step-connector {
-    flex: 1;
-    min-width: 16px;
-    max-width: 50px;
-    height: 2px;
-    background: var(--green-light);
-    margin-top: 14px;
-  }
-  .step-connector::after {
-    content: '';
-    position: absolute;
-    right: -1px;
-    top: -3px;
-    border-left: 5px solid var(--green);
-    border-top: 4px solid transparent;
-    border-bottom: 4px solid transparent;
-  }
-  .step-connector { position: relative; }
-  .step-flow-desc {
-    font-size: 13px;
-    color: var(--gray-700);
-    line-height: 1.65;
-    margin-bottom: 2px;
-  }
-
-  /* ── CONTACT ── */
-  .contact-strip {
-    background: var(--white);
-    border: 1px solid var(--gray-200);
-    border-top: 3px solid var(--green);
-    border-radius: var(--radius);
-    padding: 28px 32px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 24px;
-  }
-  .contact-strip-text h3 { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
-  .contact-strip-text p { font-size: 13px; color: var(--gray-500); }
-  .contact-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: var(--orange);
-    color: var(--white);
-    font-size: 13px;
-    font-weight: 600;
-    padding: 10px 22px;
-    border-radius: 6px;
-    border: none;
-    cursor: pointer;
-    transition: background 0.2s;
-    font-family: 'DM Sans', sans-serif;
-    white-space: nowrap;
-  }
-  .contact-btn:hover { background: var(--orange-hover); }
-
-  /* ── RESOURCE LINKS (inside accordion) ── */
-  .resource-links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 14px;
-  }
-  .resource-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--green);
-    background: var(--green-light);
-    padding: 5px 12px;
-    border-radius: 6px;
-    text-decoration: none;
-    transition: background 0.15s, color 0.15s;
-    cursor: pointer;
-  }
-  .resource-link:hover {
-    background: var(--green);
-    color: var(--white);
-  }
-  .resource-link svg { flex-shrink: 0; }
-
-  /* ── RELATED ARTICLES (inside accordion) ── */
-  .related {
-    margin-top: 16px;
-    padding-top: 14px;
-    border-top: 1px solid var(--gray-200);
-  }
-  .related-label {
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--gray-500);
-    margin-bottom: 6px;
-  }
-  .related-links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-  }
-  .related-link {
-    font-size: 12px;
-    color: var(--green);
-    text-decoration: none;
-    cursor: pointer;
-    padding: 3px 0;
-    border-bottom: 1px dashed var(--green-light);
-    transition: border-color 0.15s;
-  }
-  .related-link:hover { border-color: var(--green); }
-  .related-link::before { content: '→ '; opacity: 0.5; }
-
-  /* ── LEGEND ── */
-  .legend {
-    background: var(--white);
-    border: 1px solid var(--gray-200);
-    border-radius: var(--radius);
-    padding: 18px 24px;
-    display: flex;
-    align-items: center;
-    gap: 24px;
-    flex-wrap: wrap;
-  }
-  .legend-title {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--gray-500);
-  }
-  .legend-items { display: flex; gap: 20px; flex-wrap: wrap; }
-  .legend-item {
-    display: flex;
-    align-items: center;
-    gap: 7px;
-    font-size: 12px;
-    color: var(--gray-700);
-  }
-  .legend-dot {
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 8px;
-    font-weight: 700;
-    flex-shrink: 0;
-  }
-  .legend-dot.green { background: var(--green-light); border: 2px solid var(--green); color: var(--green); }
-  .legend-dot.orange { background: var(--orange-light); border: 2px solid var(--orange); color: var(--orange); }
-  .legend-dot.green-fill { background: var(--green); border: 2px solid var(--green); color: var(--white); }
-
-  /* ── KEY CONTACTS ── */
-  .contacts-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
-  }
-  .contact-card {
-    background: var(--white);
-    border: 1px solid var(--gray-200);
-    border-radius: var(--radius);
-    padding: 18px 20px;
-    text-align: center;
-  }
-  .contact-card-icon {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background: var(--green-light);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 10px;
-  }
-  .contact-card-icon svg { color: var(--green); }
-  .contact-card h4 {
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--gray-900);
-    margin-bottom: 2px;
-  }
-  .contact-card p {
-    font-size: 11px;
-    color: var(--gray-500);
-    line-height: 1.4;
-  }
-  .contact-card a {
-    display: inline-block;
-    margin-top: 8px;
-    font-size: 11px;
-    font-weight: 600;
-    color: var(--green);
-    text-decoration: none;
-  }
-  .contact-card a:hover { text-decoration: underline; }
-
-  /* ── FOOTER ── */
-  footer {
-    border-top: 1px solid var(--gray-200);
-    padding: 20px 40px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-size: 12px;
-    color: var(--gray-500);
-    background: var(--white);
-  }
-
-  /* ── SEARCH MODAL ── */
-  .search-overlay {
-    display: none; position: fixed; inset: 0; z-index: 999;
-    background: rgba(0,0,0,0.35); backdrop-filter: blur(4px);
-    align-items: flex-start; justify-content: center; padding-top: 120px;
-  }
-  .search-modal {
-    background: var(--white); border-radius: 14px; width: 560px; max-width: 92vw;
-    box-shadow: 0 24px 80px rgba(0,0,0,0.18); overflow: hidden;
-    animation: modalIn 0.18s ease-out;
-  }
-  @keyframes modalIn {
-    from { opacity: 0; transform: translateY(-8px) scale(0.98); }
-    to { opacity: 1; transform: translateY(0) scale(1); }
-  }
-  .search-input-wrap {
-    display: flex; align-items: center; gap: 12px;
-    padding: 16px 20px; border-bottom: 1px solid var(--gray-200);
-  }
-  .search-input-wrap svg { flex-shrink: 0; color: var(--green); }
-  .search-input {
-    flex: 1; border: none; outline: none; font-size: 15px;
-    font-family: 'DM Sans', sans-serif; color: var(--gray-900); background: transparent;
-  }
-  .search-input::placeholder { color: var(--gray-300); }
-  .search-input-wrap .esc-hint {
-    font-size: 11px; color: var(--gray-500); background: var(--gray-100);
-    border: 1px solid var(--gray-300); border-radius: 4px; padding: 2px 6px; cursor: pointer;
-  }
-  .search-results { max-height: 340px; overflow-y: auto; padding: 8px; }
-  .search-results:empty::after {
-    content: 'Start typing to search…';
-    display: block; padding: 24px 16px; text-align: center;
-    color: var(--gray-500); font-size: 13px;
-  }
-  .search-results.has-query:empty::after { content: 'No matching procedures found.'; }
-  .search-result-item {
-    display: flex; align-items: flex-start; gap: 12px;
-    padding: 12px 14px; border-radius: 8px; cursor: pointer; transition: background 0.12s;
-  }
-  .search-result-item:hover, .search-result-item.active { background: var(--green-light); }
-  .search-result-cat {
-    font-size: 10px; font-weight: 700; letter-spacing: 0.06em;
-    text-transform: uppercase; color: var(--green); white-space: nowrap;
-    min-width: 80px; padding-top: 2px;
-  }
-  .search-result-title { font-size: 14px; font-weight: 500; color: var(--gray-900); }
-  .search-result-title mark {
-    background: var(--orange-light); color: var(--orange-hover);
-    border-radius: 2px; padding: 0 1px;
-  }
-  .search-footer {
-    border-top: 1px solid var(--gray-100); padding: 10px 20px;
-    display: flex; align-items: center; gap: 16px;
-    font-size: 11px; color: var(--gray-500);
-  }
-  .search-footer kbd {
-    font-family: 'DM Sans', sans-serif; font-size: 10px;
-    background: var(--gray-100); border: 1px solid var(--gray-300);
-    border-radius: 3px; padding: 1px 4px;
-  }
-
-  /* ── RESPONSIVE ── */
-  @media (max-width: 700px) {
-    .card-grid { grid-template-columns: 1fr; }
-    .hero h1 { font-size: 28px; }
-    nav, footer { padding-left: 20px; padding-right: 20px; }
-    .hero { padding: 44px 20px 36px; }
-    .contact-strip { flex-direction: column; text-align: center; }
-    .nav-search { display: none; }
-    .search-overlay { padding-top: 60px; }
-    .accordion-content { padding-left: 22px; }
-    .step-node { min-width: 80px; }
-    .contacts-grid { grid-template-columns: 1fr 1fr; }
-    .legend { gap: 12px; }
-  }
-</style>
+<link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
 
 <nav>
   <div class="nav-left">
-    <img src="1773337198025_image.png" alt="The Amlon Group" class="nav-logo" />
+    <img src="assets/img/amlongroup-logo.svg" alt="The Amlon Group" class="nav-logo" />
     <div class="nav-divider"></div>
     <span class="nav-title">Inventory Knowledge Base</span>
   </div>
   <div class="nav-right">
     <div class="nav-search">
       <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="6" r="5"/><line x1="10" y1="10" x2="13" y2="13"/></svg>
-      <span>Search knowledge base…</span>
-      <kbd>⌘K</kbd>
+      <span>Search knowledge base...</span>
+      <kbd>Ctrl+K</kbd>
     </div>
   </div>
 </nav>
@@ -635,7 +38,7 @@
       <div class="card" onclick="scrollToSection('discrepancies')">
         <div class="card-icon"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M9 1v6M9 11v0.01M3 15.5h12a2 2 0 001.7-3L10.7 2.5a2 2 0 00-3.4 0L1.3 12.5a2 2 0 001.7 3z"/></svg></div>
         <h3>Count Discrepancies</h3>
-        <p>Physical count vs. system mismatch — reconciliation and escalation.</p>
+        <p>Physical count vs. system mismatch - reconciliation and escalation.</p>
       </div>
       <div class="card" onclick="scrollToSection('receiving')">
         <div class="card-icon"><svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 4h10a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6a2 2 0 012-2zM9 8v6M6 11l3 3 3-3"/></svg></div>
@@ -676,7 +79,7 @@
     </div>
   </div>
 
-  <!-- ═══ DISCREPANCIES ═══ -->
+  <!-- --- DISCREPANCIES --- -->
   <div class="section" id="discrepancies">
     <div class="section-label">Count Discrepancies</div>
     <div class="accordion">
@@ -731,7 +134,7 @@
             <div class="step-connector"></div>
             <div class="step-node end"><div class="step-circle">4</div><div class="step-label">Log overage</div></div>
           </div>
-          <p class="step-flow-desc">Confirm all recent shipments were fully received in the system. Check for returns restocked but never scanned back in. Verify the SKU — mislabeled or look-alike items may be mixed in. Log the overage via <strong>Inventory Adjustment Request</strong> with documentation.</p>
+          <p class="step-flow-desc">Confirm all recent shipments were fully received in the system. Check for returns restocked but never scanned back in. Verify the SKU - mislabeled or look-alike items may be mixed in. Log the overage via <strong>Inventory Adjustment Request</strong> with documentation.</p>
           <div class="resource-links">
             <a class="resource-link" href="#"><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l3-3 3 3"/><path d="M6 6v6"/><rect x="1" y="1" width="10" height="10" rx="2"/></svg> Inventory Adjustment Form</a>
             <a class="resource-link" href="#"><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l3-3 3 3"/><path d="M6 6v6"/><rect x="1" y="1" width="10" height="10" rx="2"/></svg> Returns Processing Guide</a>
@@ -775,7 +178,7 @@
     </div>
   </div>
 
-  <!-- ═══ RECEIVING ═══ -->
+  <!-- --- RECEIVING --- -->
   <div class="section" id="receiving">
     <div class="section-label">Receiving Issues</div>
     <div class="accordion">
@@ -829,7 +232,7 @@
             <div class="step-connector"></div>
             <div class="step-node end"><div class="step-circle">4</div><div class="step-label">Notify buyer</div></div>
           </div>
-          <p class="step-flow-desc">Recount against the packing slip, not the PO. Receive only what's physically present — never pad to match. Flag as <strong>Partial Receipt</strong> with actual vs. expected qty. Notify the buyer to follow up with the supplier.</p>
+          <p class="step-flow-desc">Recount against the packing slip, not the PO. Receive only what's physically present - never pad to match. Flag as <strong>Partial Receipt</strong> with actual vs. expected qty. Notify the buyer to follow up with the supplier.</p>
           <div class="related">
             <div class="related-label">Related Articles</div>
             <div class="related-links">
@@ -856,7 +259,7 @@
             <div class="step-connector"></div>
             <div class="step-node warn"><div class="step-circle">4</div><div class="step-label">Escalate at 48h</div></div>
           </div>
-          <p class="step-flow-desc">Place in <code>RCV-HOLD</code> — do not receive into inventory. Try to ID the supplier from packing slip, labels, or carrier info. Contact Procurement with whatever you have. If unresolved after 48 hours, escalate to the Warehouse Supervisor.</p>
+          <p class="step-flow-desc">Place in <code>RCV-HOLD</code> - do not receive into inventory. Try to ID the supplier from packing slip, labels, or carrier info. Contact Procurement with whatever you have. If unresolved after 48 hours, escalate to the Warehouse Supervisor.</p>
           <div class="related">
             <div class="related-label">Related Articles</div>
             <div class="related-links">
@@ -870,7 +273,7 @@
     </div>
   </div>
 
-  <!-- ═══ TRANSFERS ═══ -->
+  <!-- --- TRANSFERS --- -->
   <div class="section" id="transfers">
     <div class="section-label">Transfer Errors</div>
     <div class="accordion">
@@ -890,7 +293,7 @@
             <div class="step-connector"></div>
             <div class="step-node warn"><div class="step-circle">4</div><div class="step-label">Flag In Dispute</div></div>
           </div>
-          <p class="step-flow-desc">Verify the transfer shows "Shipped" at origin. Call the receiving facility — goods may have arrived unscanned. If on-site, have them receipt now. If missing in transit, flag <strong>In Dispute</strong> and loop in Logistics.</p>
+          <p class="step-flow-desc">Verify the transfer shows "Shipped" at origin. Call the receiving facility - goods may have arrived unscanned. If on-site, have them receipt now. If missing in transit, flag <strong>In Dispute</strong> and loop in Logistics.</p>
         </div></div>
       </div>
 
@@ -916,7 +319,7 @@
     </div>
   </div>
 
-  <!-- ═══ SYSTEM ═══ -->
+  <!-- --- SYSTEM --- -->
   <div class="section" id="system">
     <div class="section-label">System &amp; Data</div>
     <div class="accordion">
@@ -936,7 +339,7 @@
             <div class="step-connector"></div>
             <div class="step-node end"><div class="step-circle">4</div><div class="step-label">Override if blocking</div></div>
           </div>
-          <p class="step-flow-desc">Check the integration dashboard for error logs — grab the timestamp and error code. Do <strong>not</strong> manually adjust quantities to force a match. Ticket IT with the details and affected SKUs. If operations are blocked, request a manual override with IT approval.</p>
+          <p class="step-flow-desc">Check the integration dashboard for error logs - grab the timestamp and error code. Do <strong>not</strong> manually adjust quantities to force a match. Ticket IT with the details and affected SKUs. If operations are blocked, request a manual override with IT approval.</p>
           <div class="resource-links">
             <a class="resource-link" href="#"><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l3-3 3 3"/><path d="M6 6v6"/><rect x="1" y="1" width="10" height="10" rx="2"/></svg> Integration Dashboard</a>
             <a class="resource-link" href="#"><svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l3-3 3 3"/><path d="M6 6v6"/><rect x="1" y="1" width="10" height="10" rx="2"/></svg> IT Ticket Portal</a>
@@ -955,11 +358,11 @@
             <div class="step-connector"></div>
             <div class="step-node"><div class="step-circle">2</div><div class="step-label">Find source of truth</div></div>
             <div class="step-connector"></div>
-            <div class="step-node warn"><div class="step-circle">3</div><div class="step-label">Don't delete — merge</div></div>
+            <div class="step-node warn"><div class="step-circle">3</div><div class="step-label">Don't delete - merge</div></div>
             <div class="step-connector"></div>
             <div class="step-node end"><div class="step-circle">4</div><div class="step-label">Consolidate physical</div></div>
           </div>
-          <p class="step-flow-desc">Note both SKU/lot numbers, quantities, and locations. The first-created record is usually the source of truth. Do <strong>not</strong> delete either — submit a <strong>Data Merge Request</strong> to IT. Consolidate physical stock under one location until the merge completes.</p>
+          <p class="step-flow-desc">Note both SKU/lot numbers, quantities, and locations. The first-created record is usually the source of truth. Do <strong>not</strong> delete either - submit a <strong>Data Merge Request</strong> to IT. Consolidate physical stock under one location until the merge completes.</p>
         </div></div>
       </div>
 
@@ -978,7 +381,7 @@
             <div class="step-connector"></div>
             <div class="step-node end"><div class="step-circle">4</div><div class="step-label">Process + attach</div></div>
           </div>
-          <p class="step-flow-desc">Select a root-cause category (shrinkage, damage, data error, etc.). Complete the form with SKU, current qty, proposed qty, and justification. Approval: team lead for &lt;$500, manager for ≥$500. Process and attach the signed form to the transaction record.</p>
+          <p class="step-flow-desc">Select a root-cause category (shrinkage, damage, data error, etc.). Complete the form with SKU, current qty, proposed qty, and justification. Approval: team lead for &lt;$500, manager for =$500. Process and attach the signed form to the transaction record.</p>
           <div class="note">
             <svg width="14" height="14" fill="none" stroke="#E8A43B" stroke-width="2"><circle cx="7" cy="7" r="6"/><path d="M7 4v3M7 9v.01"/></svg>
             All adjustments are audited quarterly. Incomplete documentation will be flagged.
@@ -1001,25 +404,25 @@
         <div class="contact-card-icon"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 1a4 4 0 014 4c0 2.5-4 6-4 6S4 7.5 4 5a4 4 0 014-4z"/><circle cx="8" cy="5" r="1.5"/></svg></div>
         <h4>Inventory Control Lead</h4>
         <p>Count discrepancies, cycle count escalations, adjustment approvals</p>
-        <a href="#">Contact →</a>
+        <a href="#">Contact ?</a>
       </div>
       <div class="contact-card">
         <div class="contact-card-icon"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="3" width="12" height="10" rx="1.5"/><path d="M2 6h12"/></svg></div>
         <h4>IT Support</h4>
         <p>Sync failures, duplicate SKUs, data merges, system overrides</p>
-        <a href="#">Submit Ticket →</a>
+        <a href="#">Submit Ticket ?</a>
       </div>
       <div class="contact-card">
         <div class="contact-card-icon"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h8a2 2 0 012 2v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6a2 2 0 012-2z"/><path d="M2 6l6 3.5L14 6"/></svg></div>
         <h4>Procurement</h4>
         <p>PO lookups, supplier follow-ups, receiving exceptions, partial receipts</p>
-        <a href="#">Contact →</a>
+        <a href="#">Contact ?</a>
       </div>
       <div class="contact-card">
         <div class="contact-card-icon"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 13V5a2 2 0 012-2h6a2 2 0 012 2v8"/><path d="M1 13h14"/><path d="M6 7h4M6 10h4"/></svg></div>
         <h4>Warehouse Supervisor</h4>
         <p>Unresolved receiving holds, missing transfers, physical investigations</p>
-        <a href="#">Contact →</a>
+        <a href="#">Contact ?</a>
       </div>
     </div>
   </div>
@@ -1031,7 +434,7 @@
         <h3>Don't see your issue?</h3>
         <p>Reach the Inventory Control team for anything not covered in this knowledge base.</p>
       </div>
-      <button class="contact-btn">Contact Inventory Control →</button>
+      <button class="contact-btn">Contact Inventory Control ?</button>
     </div>
   </div>
 
@@ -1042,137 +445,26 @@
   <div class="search-modal">
     <div class="search-input-wrap">
       <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="7" cy="7" r="5.5"/><line x1="11" y1="11" x2="14.5" y2="14.5"/></svg>
-      <input class="search-input" id="searchInput" type="text" placeholder="Search knowledge base…" autocomplete="off" />
+      <input class="search-input" id="searchInput" type="text" placeholder="Search knowledge base..." autocomplete="off" />
       <span class="esc-hint" onclick="closeSearch()">esc</span>
     </div>
     <div class="search-results" id="searchResults"></div>
     <div class="search-footer">
-      <span><kbd>↑</kbd> <kbd>↓</kbd> navigate</span>
-      <span><kbd>↵</kbd> open</span>
+      <span><kbd>Up</kbd> <kbd>Down</kbd> navigate</span>
+      <span><kbd>Enter</kbd> open</span>
       <span><kbd>esc</kbd> close</span>
     </div>
   </div>
 </div>
 
 <footer>
-  <span>© 2026 The Amlon Group. Internal use only.</span>
+  <span>(c) 2026 The Amlon Group. Internal use only.</span>
   <span>Last updated: March 2026</span>
 </footer>
 
-<script>
-const searchIndex = [];
-document.querySelectorAll('.accordion-item').forEach(item => {
-  const section = item.closest('.section');
-  const category = section.querySelector('.section-label')?.textContent || '';
-  const sectionId = section.id || '';
-  const title = item.querySelector('.accordion-title')?.textContent || '';
-  const body = item.querySelector('.accordion-content')?.textContent || '';
-  searchIndex.push({ category, sectionId, title, body, element: item });
-});
-
-const overlay = document.getElementById('searchModal');
-const input = document.getElementById('searchInput');
-const results = document.getElementById('searchResults');
-let activeIdx = -1;
-
-function openSearch() {
-  overlay.style.display = 'flex'; input.value = ''; results.innerHTML = '';
-  results.classList.remove('has-query'); activeIdx = -1;
-  setTimeout(() => input.focus(), 50);
-}
-function closeSearch() {
-  overlay.style.display = 'none'; input.value = ''; results.innerHTML = '';
-  results.classList.remove('has-query');
-}
-
-document.querySelector('.nav-search').onclick = openSearch;
-document.addEventListener('keydown', e => {
-  if ((e.metaKey || e.ctrlKey) && e.key === 'k') { e.preventDefault(); openSearch(); }
-  if (e.key === 'Escape' && overlay.style.display === 'flex') closeSearch();
-});
-
-function highlightMatch(text, query) {
-  if (!query) return text;
-  let result = text;
-  query.trim().split(/\s+/).filter(Boolean).forEach(w => {
-    result = result.replace(new RegExp(`(${w.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`, 'gi'), '<mark>$1</mark>');
-  });
-  return result;
-}
-
-input.addEventListener('input', () => {
-  const q = input.value.trim().toLowerCase();
-  results.innerHTML = ''; activeIdx = -1;
-  if (!q) { results.classList.remove('has-query'); return; }
-  results.classList.add('has-query');
-  const words = q.split(/\s+/).filter(Boolean);
-  searchIndex.map(entry => {
-    let score = 0;
-    words.forEach(w => {
-      if (entry.title.toLowerCase().includes(w)) score += 10;
-      if (entry.category.toLowerCase().includes(w)) score += 5;
-      if (entry.body.toLowerCase().includes(w)) score += 2;
-    });
-    return { ...entry, score };
-  }).filter(e => e.score > 0).sort((a,b) => b.score - a.score).forEach((entry, i) => {
-    const div = document.createElement('div');
-    div.className = 'search-result-item';
-    div.innerHTML = `<span class="search-result-cat">${entry.category}</span><span class="search-result-title">${highlightMatch(entry.title, q)}</span>`;
-    div.onclick = () => goToResult(entry);
-    div.onmouseenter = () => { results.querySelectorAll('.active').forEach(el => el.classList.remove('active')); div.classList.add('active'); activeIdx = i; };
-    results.appendChild(div);
-  });
-});
-
-input.addEventListener('keydown', e => {
-  const items = results.querySelectorAll('.search-result-item');
-  if (!items.length) return;
-  if (e.key === 'ArrowDown') { e.preventDefault(); activeIdx = (activeIdx+1) % items.length; updateActive(items); }
-  else if (e.key === 'ArrowUp') { e.preventDefault(); activeIdx = (activeIdx-1+items.length) % items.length; updateActive(items); }
-  else if (e.key === 'Enter' && activeIdx >= 0) { e.preventDefault(); items[activeIdx].click(); }
-});
-
-function updateActive(items) { items.forEach((el,i) => el.classList.toggle('active', i===activeIdx)); items[activeIdx]?.scrollIntoView({block:'nearest'}); }
-
-function goToResult(entry) {
-  closeSearch();
-  if (entry.sectionId) document.getElementById(entry.sectionId)?.scrollIntoView({ behavior:'smooth', block:'start' });
-  setTimeout(() => {
-    const header = entry.element.querySelector('.accordion-header');
-    if (header && !entry.element.classList.contains('open')) toggleAccordion(header);
-    entry.element.style.boxShadow = '0 0 0 2px var(--green)';
-    setTimeout(() => { entry.element.style.boxShadow = ''; }, 1200);
-  }, 400);
-}
-
-function toggleAccordion(header) {
-  const item = header.parentElement;
-  const body = item.querySelector('.accordion-body');
-  const isOpen = item.classList.contains('open');
-  item.closest('.accordion').querySelectorAll('.accordion-item.open').forEach(o => {
-    if (o !== item) { o.classList.remove('open'); o.querySelector('.accordion-body').style.maxHeight = null; }
-  });
-  if (isOpen) { item.classList.remove('open'); body.style.maxHeight = null; }
-  else { item.classList.add('open'); body.style.maxHeight = body.scrollHeight + 'px'; }
-}
-
-function scrollToSection(id) { document.getElementById(id)?.scrollIntoView({ behavior:'smooth', block:'start' }); }
-
-function openRelated(sectionId, itemIndex) {
-  const section = document.getElementById(sectionId);
-  if (!section) return;
-  const items = section.querySelectorAll('.accordion-item');
-  const item = items[itemIndex];
-  if (!item) return;
-  section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  setTimeout(() => {
-    const header = item.querySelector('.accordion-header');
-    if (header && !item.classList.contains('open')) toggleAccordion(header);
-    item.style.boxShadow = '0 0 0 2px var(--green)';
-    setTimeout(() => { item.style.boxShadow = ''; }, 1200);
-  }, 400);
-}
-</script>
+<script defer src="assets/js/main.js"></script>
 
 </body>
 </html>
+
+
